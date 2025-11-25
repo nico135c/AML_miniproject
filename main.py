@@ -1,38 +1,13 @@
-import logging
-from ucimlrepo import fetch_ucirepo
-import pandas
-from BinaryClassifier import BinaryClassifier
-from MulticlassClassifier import MulticlassClassifier
+from classifiers import BinaryClassifier, MultiClassClassifier
 
-# Global logger configuration
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s [%(levelname)s] [%(name)s] %(message)s",
-    handlers=[
-        logging.FileHandler("app.log"),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
+binary = BinaryClassifier()
+binary.train()
 
-def load_data():
-    # fetch dataset 
-    steel_plates_faults = fetch_ucirepo(id=198) 
-    
-    # data (as pandas dataframes) 
-    X = steel_plates_faults.data.features 
-    y = steel_plates_faults.data.targets 
-    
-    # metadata 
-    print(steel_plates_faults.metadata)
-    
-    # variable information 
-    print(steel_plates_faults.variables)
+multi = MultiClassClassifier()
+multi.train()
 
-def main():
-    binclass = BinaryClassifier()
-    multiclass = MulticlassClassifier()
-    load_data()
+binary.get_report()
+binary.get_cmatrix()
 
-if __name__ == "__main__":
-    main()
+multi.get_report()
+multi.get_cmatrix()
