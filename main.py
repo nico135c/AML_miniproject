@@ -1,13 +1,10 @@
 from classifiers import BinaryClassifier, MultiClassClassifier
 
 binary = BinaryClassifier()
-binary.train()
-
 multi = MultiClassClassifier()
-multi.train()
 
-binary.get_report()
-binary.get_cmatrix()
+models = [binary, multi]
 
-multi.get_report()
-multi.get_cmatrix()
+for model in models:
+    model.train()
+    model.create_plots()
